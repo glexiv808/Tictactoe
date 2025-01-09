@@ -1,9 +1,6 @@
 import sys
 import pygame
 import numpy as np
-from pygame.examples.go_over_there import CIRCLE_RADIUS, screen
-from pygame.examples.moveit import HEIGHT
-from pygame.examples.music_drop_fade import starting_pos
 
 pygame.init()
 
@@ -40,7 +37,7 @@ def draw_figures(color=WHITE):
     for row in range(BOARD_ROWS):
         for col in range(BOARD_COLS):
             if board[row][col] == 1:
-                pygame.draw.circle(screen, color, (int(col * SQUARE_SIZE // 2), int(row * SQUARE_SIZE + SQUARE_SIZE // 2)),CIRCLE_RADIUS ,CIRCLE_WIDTH)
+                pygame.draw.circle(screen, color, (int(col * SQUARE_SIZE + SQUARE_SIZE // 2), int(row * SQUARE_SIZE + SQUARE_SIZE // 2)),CIRCLE_RADIUS ,CIRCLE_WIDTH)
             elif board[row][col] == 2:
                 pygame.draw.line(screen, color,(col * SQUARE_SIZE + SQUARE_SIZE // 4, row * SQUARE_SIZE + SQUARE_SIZE // 4), (col * SQUARE_SIZE + 3 * SQUARE_SIZE // 4, row * SQUARE_SIZE + 3 * SQUARE_SIZE // 4))
                 pygame.draw.line(screen, color,(col * SQUARE_SIZE + SQUARE_SIZE // 4, row * SQUARE_SIZE + 3 * SQUARE_SIZE // 4), (col * SQUARE_SIZE + 3 * SQUARE_SIZE // 4, row * SQUARE_SIZE + SQUARE_SIZE // 4))
@@ -48,7 +45,7 @@ def draw_figures(color=WHITE):
 def mark_square(row, col, player):
     board[row][col] = player
 
-def availble_square(row, col):
+def available_square(row, col):
     return board[row][col] == 0
 
 def is_board_full(check_board=board):
@@ -144,7 +141,7 @@ while True:
                 mouseX = event.pos[0] // SQUARE_SIZE
                 mouseY = event.pos[1] // SQUARE_SIZE
 
-                if availble_square(mouseY, mouseX):
+                if available_square(mouseY, mouseX):
                     mark_square(mouseY, mouseX, player)
                     if check_win(player):
                         game_over= True
